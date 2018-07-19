@@ -318,6 +318,10 @@ class GenerateDocumentation extends Command
     {
         list($class, $method) = explode('@', $route);
         $reflection = new ReflectionClass($class);
+        if(! $reflection->hasMethod($method)){
+            return false;
+        }
+        
         $comment = $reflection->getMethod($method)->getDocComment();
         if ($comment) {
             $phpdoc = new DocBlock($comment);
